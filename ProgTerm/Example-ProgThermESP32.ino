@@ -165,7 +165,7 @@ void ExCommand(uint8_t cmd)
         uint8_t _onoff = CP.Field[5]; Log.Verbose(String(_onoff)); Log.Verbose(",");
         uint8_t _swn = CP.Field[6]; Log.Verbose(String(_swn)); Log.Verbose("\n");
         Log.Info("\n#2>");
-        Log.Info(HS.SetEventDay((timeDayOfWeek_t)_dow, _evnum, _Tqua, (EventState_sc)_en, (SwitchState_sc) _onoff,(SwitchNum_sc) _swn)); Log.Info(F("\n"));
+        Log.Info(HS.SetEventDay((timeDayOfWeek_t)_dow, _evnum, _Tqua, (EventState_sc)_en, (SwitchState_sc) _onoff, (SwitchNum_sc) _swn)); Log.Info(F("\n"));
         HS.WrEEPROMdayEv(HS.Sched.Daily);
         UpdateSched();
         Log.Info(F("#2>OK\n"));
@@ -194,7 +194,15 @@ void ExCommand(uint8_t cmd)
         Log.Info(F("#4>"));
         HStat.StatPrint();
         Log.Info(F("#4>NextEvent="));
-        Log.Info(HS.DateTimeToStr(Alarm.getNextTrigger()));
+       // Log.Info(HS.DateTimeToStr(Alarm.getNextTrigger()));
+        
+        for (uint8_t id = 0; id < dtNBR_ALARMS; id++) {
+          if (Alarm.isAllocated(id)) {
+            
+            Log.Debug(String(HS.DateTimeToStr(Alarm.read(id))));  
+
+          }
+        }
         Log.Info(F("\n#4>Time="));
         digitalClockDisplay();
         Log.Info(F("#4>OK\n"));
@@ -206,7 +214,7 @@ void ExCommand(uint8_t cmd)
       if (CP.Nfield == 6)
       {
         Log.Debug(F("\nCommand Change Status Parameters: "));
-        Log_en _Uartlev =(Log_en) CP.Field[1]; Log.Verbose(String(_Uartlev)); Log.Verbose(",");
+        Log_en _Uartlev = (Log_en) CP.Field[1]; Log.Verbose(String(_Uartlev)); Log.Verbose(",");
         Log_en _ZBlev = (Log_en) CP.Field[2]; Log.Verbose(String(_ZBlev)); Log.Verbose(",");
         Mode_en _Mode = (Mode_en) CP.Field[3]; Log.Verbose(String(_Mode)); Log.Verbose(",");
         uint8_t _ClockPer = CP.Field[4]; Log.Verbose(String(_ClockPer)); Log.Verbose(",");
@@ -348,7 +356,7 @@ void UpdateDailySched()
     Log.Info(F("\n Next event: "));
     Log.Info(HS.EventToStrShort(HS.Sched.Daily.Event));
     Log.Verbose(F("\tget="));
-    Log.Verbose(String(HS.DateTimeToStr(Alarm.read(id0))));
+    Log.Verbose(String(HS.DateTimeToStr(Alarm.read(id0))));    
     Log.Info(F("\n"));
   }
   else
