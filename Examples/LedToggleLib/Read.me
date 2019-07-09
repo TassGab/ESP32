@@ -1,0 +1,8 @@
+LedToggle library implements a library for led toggling 
+It provides an Handle method to be used in the loop or Ticker interrupt service routine
+After having created an istance of the class, the settings must be given in the setup by means Set method.
+It take several parameters: void Set(int pin, LedType ledAct, uint32_t Ton_ms, uint32_t Toff_ms)
+Led Type is a type to specify the led active state (high or low).
+After the settings the Start method activate the led control.
+You can stop the control and also read the led status
+The example uses a state machine to change the toggling periods in order to have a kind of blinking code scheme (example to indicate the states of WiFi link)
