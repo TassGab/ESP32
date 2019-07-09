@@ -1,0 +1,12 @@
+This sketch implements a Pump control via BT, serial port and push-button
+It's developed for ESP32_ProgTherm v11 board
+The BT classic takes the same command of Serial port but the printed messages are less (only GetStatus response)
+pushbutton pin is on IO13 (Touch main)
+Serial baudrate is 115200
+
+Commands:
+-help       // to show help menu
+-Pump on    //turn on pump control
+-Pump off   //turn off pump control
+-GetStat    //read Pump control status
+-reboot     //reboot ESP32
